@@ -130,6 +130,42 @@
 ## Run Streamlit app
 ## Use `streamlit run shelter_dashboard.py` in the terminal
 
+#
+#import os
+#import json
+#import streamlit as st
+#import pandas as pd
+#import matplotlib.pyplot as plt
+#import seaborn as sns
+#from google.cloud import bigquery
+#
+## ✅ Load credentials from Streamlit Secrets
+#if "GOOGLE_APPLICATION_CREDENTIALS" in st.secrets:
+#    credentials_dict = dict(st.secrets["GOOGLE_APPLICATION_CREDENTIALS"])
+#
+#    # ✅ Create a temporary JSON file
+#    with open("/tmp/gcp_credentials.json", "w") as f:
+#        json.dump(credentials_dict, f)
+#
+#    # ✅ Set the environment variable for authentication
+#    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/tmp/gcp_credentials.json"
+#
+## ✅ Load Data from BigQuery
+#@st.cache_data
+#def load_data():
+#    project_id = "animalshelter-452610"
+#    client = bigquery.Client(project=project_id)
+#    dataset_id = "animal_shelter_data"
+#    table_id = "processed_animalshelterdata"
+#
+#    query = f"SELECT * FROM `{project_id}.{dataset_id}.{table_id}`"
+#    df = client.query(query).to_dataframe()
+#    return df
+#
+## Load data
+#df = load_data()
+#st.title("Animal Shelter Dashboard")
+
 
 import os
 import json
