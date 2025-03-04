@@ -4,3 +4,4 @@ matplotlib
 seaborn
 google-cloud-bigquery
 db-dtypes
+google-cloud-bigquery-storage
