@@ -166,9 +166,9 @@
 #df = load_data()
 #st.title("Animal Shelter Dashboard")
 
-
 import os
 import json
+import base64
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -177,14 +177,19 @@ from google.cloud import bigquery
 
 # ✅ Load credentials from Streamlit Secrets
 if "GOOGLE_APPLICATION_CREDENTIALS" in st.secrets:
-    credentials_dict = dict(st.secrets["GOOGLE_APPLICATION_CREDENTIALS"])
+    encoded_credentials = st.secrets["GOOGLE_APPLICATION_CREDENTIALS"]["encoded_key"]
 
-    # ✅ Create a temporary JSON file
-    with open("/tmp/gcp_credentials.json", "w") as f:
+    # ✅ Decode Base64 back to JSON
+    credentials_json = base64.b64decode(encoded_credentials).decode("utf-8")
+    credentials_dict = json.loads(credentials_json)
+
+    # ✅ Save the credentials to a temporary JSON file
+    credentials_path = "/tmp/gcp_credentials.json"
+    with open(credentials_path, "w") as f:
         json.dump(credentials_dict, f)
 
     # ✅ Set the environment variable for authentication
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/tmp/gcp_credentials.json"
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credentials_path
 
 # ✅ Load Data from BigQuery
 @st.cache_data
